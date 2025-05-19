@@ -2,8 +2,8 @@ package com.jazzkuh.inventorylib.objects.icon;
 
 import lombok.Data;
 import net.kyori.adventure.nbt.CompoundBinaryTag;
+import net.minestom.server.component.DataComponents;
 import net.minestom.server.event.inventory.InventoryPreClickEvent;
-import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.component.CustomData;
 import net.minestom.server.tag.Tag;
@@ -92,12 +92,12 @@ public final class Icon {
         if (!withIdentifier) return this.item;
 
         ItemStack itemStack = this.item;
-        if (itemStack.has(ItemComponent.CUSTOM_DATA)) {
-            CustomData customData = itemStack.get(ItemComponent.CUSTOM_DATA);
+        if (itemStack.has(DataComponents.CUSTOM_DATA)) {
+            CustomData customData = itemStack.get(DataComponents.CUSTOM_DATA);
             customData = customData.withTag(Tag.String("icon_identifier"), this.uniqueId.toString());
-            itemStack = itemStack.with(ItemComponent.CUSTOM_DATA, customData);
+            itemStack = itemStack.with(DataComponents.CUSTOM_DATA, customData);
         } else {
-            itemStack = itemStack.with(ItemComponent.CUSTOM_DATA, new CustomData(CompoundBinaryTag.builder().putString("icon_identifier", this.uniqueId.toString()).build()));
+            itemStack = itemStack.with(DataComponents.CUSTOM_DATA, new CustomData(CompoundBinaryTag.builder().putString("icon_identifier", this.uniqueId.toString()).build()));
         }
 
         return itemStack;
